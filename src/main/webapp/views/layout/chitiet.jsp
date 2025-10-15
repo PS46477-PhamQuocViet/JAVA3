@@ -76,8 +76,9 @@
 </style>
 </head>
 <body>
+	<c:set var="path" value="${pageContext.request.contextPath}" />
 	<div class="news-detail">
-		<img src="${pageContext.request.contextPath}/image/${news.image}"
+		<img src="${path}/image/${news.image}"
 			alt="${news.title}">
 		<div class="news-content">
 			<h2>${news.title}</h2>
@@ -96,7 +97,7 @@
 		<ul>
 			<c:forEach var="n" items="${relatedNews}">
 				<li><a
-					href="${pageContext.request.contextPath}/chitiet?id=${n.id}">${n.title}</a>
+					href="${path}/chitiet?id=${n.id}">${n.title}</a>
 				</li>
 			</c:forEach>
 		</ul>

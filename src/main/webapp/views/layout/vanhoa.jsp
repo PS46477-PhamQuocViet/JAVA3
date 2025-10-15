@@ -59,6 +59,7 @@
 </head>
 <body>
 	<h2>VĂN HOÁ</h2>
+	<c:set var="path" value="${pageContext.request.contextPath}" />
 	<c:forEach var="vh" items="${newsList}">
 		<div class="news-item"
 			style="display: flex; margin-bottom: 15px; border-bottom: 1px solid #ddd; padding-bottom: 10px;">
@@ -66,15 +67,19 @@
 				style="width: 120px; height: 90px; background-color: #2563EB; color: white; display: flex; align-items: center; justify-content: center; font-weight: bold; margin-right: 15px; flex-shrink: 0;">
 				<c:choose>
 					<c:when test="${not empty vh.image}">
-						<img src="${pageContext.request.contextPath}/image/${vh.image}"
-							width="120" height="90" alt="Ảnh" />
+						<a href="${path}/chitiet?id=${vh.id}"> <img
+							src="${path}/image/${vh.image}" width="120" height="90" alt="Ảnh" />
+						</a>
 					</c:when>
-					<c:otherwise>Ảnh</c:otherwise>
+					<c:otherwise>
+						<a href="${path}/chitiet?id=${vh.id}"
+							style="color: white; text-decoration: none;">Ảnh</a>
+					</c:otherwise>
 				</c:choose>
 			</div>
 
 			<div class="news-content" style="flex: 1;">
-				<a href="${pageContext.request.contextPath}/chitiet?id=${vh.id}"
+				<a href="${path}/chitiet?id=${vh.id}"
 					class="news-title"
 					style="color: #2563EB; font-weight: bold; text-decoration: none;">
 					${vh.title} </a>

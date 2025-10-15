@@ -7,7 +7,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Quản Lý</title>
 <style>
 	header,footer{
 		height: 100px;

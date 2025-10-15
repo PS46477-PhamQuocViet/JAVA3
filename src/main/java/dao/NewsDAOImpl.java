@@ -244,10 +244,10 @@ public class NewsDAOImpl implements NewsDAO {
 
 	
 
-	/** ✅ Truy vấn 3 bản tin có lượng view cao nhất */
+	/** ✅ Truy vấn 5 bản tin có lượng view cao nhất */
 	 @Override
-	    public List<News> selectTop3View() {
-	        String sql = "SELECT TOP 3 * FROM News ORDER BY ViewCount DESC";
+	    public List<News> selectTopView() {
+	        String sql = "SELECT TOP 5 * FROM News ORDER BY ViewCount DESC";
 	        try {
 	            List<News> entities = new ArrayList<>();
 	            Object[] values = {};
@@ -271,10 +271,10 @@ public class NewsDAOImpl implements NewsDAO {
 	        }
 	    }
 
-	/** ✅ Truy vấn 3 bản tin mới nhất */
+	/** ✅ Truy vấn 5 bản tin mới nhất */
 	 @Override
-	    public List<News> selectTop3New() {
-	        String sql = "SELECT TOP 3 * FROM News ORDER BY PostedDate DESC";
+	    public List<News> selectTopNew() {
+	        String sql = "SELECT TOP 5 * FROM News ORDER BY PostedDate DESC";
 	        try {
 	            List<News> entities = new ArrayList<>();
 	            Object[] values = {};

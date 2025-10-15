@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Servlet implementation class AdminServlet
  */
-@WebServlet({"/trangchuAdmin","/tintuc","/loaitin","/nguoidung","/newsletter"})
+@WebServlet({"/trangchuadmin","/tintuc","/loaitin","/nguoidung","/newsletter"})
 public class AdminServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -31,7 +31,7 @@ public class AdminServlet extends HttpServlet {
 		String uri = request.getRequestURI();
 		String page = "";
 		
-		if (uri.contains("trangchuAdmin")) {
+		if (uri.contains("trangchuadmin")) {
 			page = "home.jsp";
 		}
 		if (uri.contains("tintuc")) {
