@@ -50,6 +50,11 @@
 	box-shadow: 0px 0px 5px rgba(37, 99, 235, 0.5);
 }
 
+.checkbox-group {
+	margin-bottom: 15px;
+	font-size: 14px;
+}
+
 .btn-login {
 	width: 100%;
 	background-color: #2563EB;
@@ -84,19 +89,29 @@
 <body>
 	<div class="login-container">
 		<h2>Đăng nhập</h2>
-		<form action="dangnhap" method="post">
+		<c:if test="${not empty message}">
+			<p style="color: red;">${message}</p>
+		</c:if>
+		<form action="login" method="post">
 			<div class="form-group">
 				<label for="username">Tên đăng nhập</label> <input type="text"
-					id="username" name="username" placeholder="Nhập tên đăng nhập"
-					required>
+					id="username" name="username"
+					value="${username != null ? username : ''}"
+					placeholder="Nhập tên đăng nhập" required>
 			</div>
 			<div class="form-group">
 				<label for="password">Mật khẩu</label> <input type="password"
-					id="password" name="password" placeholder="Nhập mật khẩu" required>
+					id="password" name="password"
+					value="${password != null ? password : ''}"
+					placeholder="Nhập mật khẩu" required>
+			</div>
+			<div class="checkbox-group">
+				<label> <input type="checkbox" name="remember-me" /> Ghi
+					nhớ đăng nhập
+				</label>
 			</div>
 			<button type="submit" class="btn-login">Đăng nhập</button>
 		</form>
 	</div>
-
 </body>
 </html>

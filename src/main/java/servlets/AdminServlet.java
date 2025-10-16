@@ -1,4 +1,4 @@
-package servelets;
+package servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -6,6 +6,11 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+
+import dao.CategoriesDAO;
+import dao.CategoriesDAOImpl;
+import entity.Categories;
 
 /**
  * Servlet implementation class AdminServlet
@@ -38,6 +43,10 @@ public class AdminServlet extends HttpServlet {
 			page = "tintuc.jsp";
 		}
 		if (uri.contains("loaitin")) {
+			CategoriesDAO dao = new CategoriesDAOImpl();
+		    List<Categories> list = dao.selectAll();
+		    request.setAttribute("list", list);
+		    request.setAttribute("item", new Categories());
 			page = "loaitin.jsp";
 		}
 		if (uri.contains("nguoidung")) {

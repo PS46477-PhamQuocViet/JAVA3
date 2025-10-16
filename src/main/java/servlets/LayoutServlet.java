@@ -1,4 +1,4 @@
-package servelets;
+package servlets;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -9,14 +9,17 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import dao.CategoriesDAO;
+import dao.CategoriesDAOImpl;
 import dao.NewsDAO;
 import dao.NewsDAOImpl;
+import entity.Categories;
 import entity.News;
 
 /**
  * Servlet implementation class LayoutServlet
  */
-@WebServlet({ "/trangchu", "/vanhoa", "/phapluat", "/thethao", "/dangnhap", "/chitiet" })
+@WebServlet({ "/trangchu", "/categories", "/dangnhap", "/chitiet" })
 public class LayoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -39,32 +42,25 @@ public class LayoutServlet extends HttpServlet {
 		String uri = request.getRequestURI();
 		String page = "";
 
+		NewsDAO newsDAO = new NewsDAOImpl();
+		CategoriesDAO categoriesDAO = new CategoriesDAOImpl();
+		
 		if (uri.contains("trangchu")) {
-			NewsDAO newsDAO = new NewsDAOImpl();
 			List<News> newsList = newsDAO.selectHome();
 			request.setAttribute("newsList", newsList);
 			page = "home.jsp";
 		}
 
-		if (uri.contains("vanhoa")) {
-			NewsDAO newsDAO = new NewsDAOImpl();
-			List<News> newsList = newsDAO.selectVanHoa();
-			request.setAttribute("newsList", newsList);
-			page = "vanhoa.jsp";
-		}
-
-		if (uri.contains("phapluat")) {
-			NewsDAO newsDAO = new NewsDAOImpl();
-			List<News> newsList = newsDAO.selectPhapLuat();
-			request.setAttribute("newsList", newsList);
-			page = "phapluat.jsp";
-		}
-
-		if (uri.contains("thethao")) {
-			NewsDAO newsDAO = new NewsDAOImpl();
-			List<News> newsList = newsDAO.selectTheThao();
-			request.setAttribute("newsList", newsList);
-			page = "thethao.jsp";
+		if (uri.contains("categories")) {
+			String id = request.getParameter("id"); // ví dụ: ?id=PL
+			if (id != null) {
+				List<News> newsList = newsDAO.selectByCategory(id);
+				request.setAttribute("newsList", newsList);
+				
+				Categories categories = categoriesDAO.selectById(id);
+				request.setAttribute("categoryName", categories.getName());
+				page = "categories.jsp";
+			}
 		}
 
 		if (uri.contains("dangnhap")) {
@@ -72,18 +68,8 @@ public class LayoutServlet extends HttpServlet {
 		}
 
 		if (uri.contains("chitiet")) {
-//			String id = request.getParameter("id");
-//			if (id != null) {
-//				NewsDAO newsDAO = new NewsDAOImpl();
-//				newsDAO.updateViewCount(id);
-//				News news = newsDAO.selectById(id);
-//				request.setAttribute("news", news);
-//				// Lấy tin cùng loại
-//				List<News> relatedNews = newsDAO.selectRelated(news.getCategoryId(), id);
-//				request.setAttribute("relatedNews", relatedNews);
 			String id = request.getParameter("id");
 			if (id != null) {
-				NewsDAO newsDAO = new NewsDAOImpl();
 				newsDAO.updateViewCount(id);
 				News news = newsDAO.selectById(id);
 				request.setAttribute("news", news);
@@ -115,7 +101,6 @@ public class LayoutServlet extends HttpServlet {
 			}
 		}
 		// 1. Lấy 5 bản tin xem nhiều
-		NewsDAO newsDAO = new NewsDAOImpl();
 		List<News> xemNhieuList = newsDAO.selectTopView();
 		request.setAttribute("xemNhieuList", xemNhieuList);
 
@@ -128,6 +113,9 @@ public class LayoutServlet extends HttpServlet {
 		if (daXemList == null) {
 			daXemList = new ArrayList<>();
 		}
+
+		List<Categories> categories = categoriesDAO.selectAll();
+		request.setAttribute("categories", categories);
 
 		request.setAttribute("page", page);
 		request.getRequestDispatcher("/views/layout/homepage.jsp").forward(request, response);

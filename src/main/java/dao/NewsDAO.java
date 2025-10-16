@@ -17,15 +17,6 @@ public interface NewsDAO {
 	/**	Truy vấn các bản tin của phóng viên theo id User ( tham số )*/
 	List<News> selectByUser(String userId);
 	
-	/** ✅ Truy vấn bản tin thuộc loại Văn Hoá */
-	List<News> selectVanHoa();
-	
-	/** ✅ Truy vấn bản tin thuộc loại Pháp Luật */
-	List<News> selectPhapLuat();
-	
-	/** ✅ Truy vấn bản tin thuộc loại Thể Thao */
-	List<News> selectTheThao();
-	
 	/** ✅ Lấy danh sách bản tin cùng loại (theo categoryId, loại trừ id hiện tại) */
 	List<News> selectRelated(String categoryId, String id);
 	
@@ -35,6 +26,8 @@ public interface NewsDAO {
 	/**	Truy vấn 5 bản tin được Post mới nhất*/
 	List<News> selectTopNew();
 	
+	/*Truy vấn theo loại tin*/
+	List<News> selectByCategory(String categoryId);
 	
 	/**	Thêm mới bản tin ( tham số )*/
 	void create(News news);

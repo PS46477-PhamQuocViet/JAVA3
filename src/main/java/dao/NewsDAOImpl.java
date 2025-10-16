@@ -35,89 +35,33 @@ public class NewsDAOImpl implements NewsDAO {
 		}
 	}
 	
-	 /** ✅ Truy vấn bản tin thuộc loại Văn Hoá */
+	
+	/*Truy vấn theo loại tin*/ 
 	 @Override
-		public List<News> selectVanHoa() {
-			try {
-				String sql = "SELECT * FROM News WHERE CategoryId = ?";
-				List<News> entities = new ArrayList<>();
-				Object[] values = {"VH"};
-				ResultSet resultSet = Jdbc.executeQuery(sql, values);
-				while (resultSet.next()) {
-					News entity = new News();
-					entity.setId(resultSet.getString("Id"));
-					entity.setTitle(resultSet.getString("Title"));
-					entity.setContent(resultSet.getString("Content"));
-					entity.setImage(resultSet.getString("Image"));
-					entity.setPostedDate(resultSet.getDate("PostedDate"));
-					entity.setAuthor(resultSet.getString("Author"));
-					entity.setViewCount(resultSet.getInt("ViewCount"));
-					entity.setCategoryId(resultSet.getString("CategoryId"));
-					entity.setHome(resultSet.getBoolean("Home"));
-					entities.add(entity);
-				}
-				return entities;
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
-		}
-	 
-	 
-	 /** ✅ Truy vấn bản tin thuộc loại Pháp Luật */
-	 @Override
-		public List<News> selectPhapLuat() {
-			try {
-				String sql = "SELECT * FROM News WHERE CategoryId = ?";
-				List<News> entities = new ArrayList<>();
-				Object[] values = {"PL"};
-				ResultSet resultSet = Jdbc.executeQuery(sql, values);
-				while (resultSet.next()) {
-					News entity = new News();
-					entity.setId(resultSet.getString("Id"));
-					entity.setTitle(resultSet.getString("Title"));
-					entity.setContent(resultSet.getString("Content"));
-					entity.setImage(resultSet.getString("Image"));
-					entity.setPostedDate(resultSet.getDate("PostedDate"));
-					entity.setAuthor(resultSet.getString("Author"));
-					entity.setViewCount(resultSet.getInt("ViewCount"));
-					entity.setCategoryId(resultSet.getString("CategoryId"));
-					entity.setHome(resultSet.getBoolean("Home"));
-					entities.add(entity);
-				}
-				return entities;
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
-		}
-	 
-	 
-	 /** ✅ Truy vấn bản tin thuộc loại Thể Thao */
-	 @Override
-		public List<News> selectTheThao() {
-			try {
-				String sql = "SELECT * FROM News WHERE CategoryId = ?";
-				List<News> entities = new ArrayList<>();
-				Object[] values = {"TT"};
-				ResultSet resultSet = Jdbc.executeQuery(sql, values);
-				while (resultSet.next()) {
-					News entity = new News();
-					entity.setId(resultSet.getString("Id"));
-					entity.setTitle(resultSet.getString("Title"));
-					entity.setContent(resultSet.getString("Content"));
-					entity.setImage(resultSet.getString("Image"));
-					entity.setPostedDate(resultSet.getDate("PostedDate"));
-					entity.setAuthor(resultSet.getString("Author"));
-					entity.setViewCount(resultSet.getInt("ViewCount"));
-					entity.setCategoryId(resultSet.getString("CategoryId"));
-					entity.setHome(resultSet.getBoolean("Home"));
-					entities.add(entity);
-				}
-				return entities;
-			} catch (Exception e) {
-				throw new RuntimeException(e);
-			}
-		}
-	 
+	 public List<News> selectByCategory(String categoryId) {
+	 	try {
+	 		List<News> list = new ArrayList<>();
+	 		Object[] values = {categoryId};
+	 		String sql = "SELECT * FROM NEWS WHERE CategoryId = ?";
+	 		ResultSet resultSet = Jdbc.executeQuery(sql, values);
+	 		while (resultSet.next()) {
+	 			News entity = new News();
+	 			entity.setId(resultSet.getString("Id"));
+				entity.setTitle(resultSet.getString("Title"));
+				entity.setContent(resultSet.getString("Content"));
+				entity.setImage(resultSet.getString("Image"));
+				entity.setPostedDate(resultSet.getDate("PostedDate"));
+				entity.setAuthor(resultSet.getString("Author"));
+				entity.setViewCount(resultSet.getInt("ViewCount"));
+				entity.setCategoryId(resultSet.getString("CategoryId"));
+				entity.setHome(resultSet.getBoolean("Home"));
+	 			list.add(entity);
+	 		}
+	 		return list;
+	 	} catch (Exception e) {
+	 		throw new RuntimeException(e);
+	 	}
+	 }
 	 
 	 /** ✅ Lấy danh sách bản tin cùng loại (theo categoryId, loại trừ id hiện tại) */
 		@Override

@@ -144,12 +144,21 @@ nav a:hover {
 	<header>Header</header>
 	<c:set var="path" value="${pageContext.request.contextPath}" />
 	<nav>
+		<a href="${path}/trangchu">Trang chủ</a> |
+
+		<c:forEach var="c" items="${categories}">
+			<a href="${path}/categories?id=${c.id}">${c.name}</a> |
+	</c:forEach>
+
+		<a href="${path}/dangnhap">Đăng nhập</a>
+	</nav>
+	<%-- 	<nav>
 		<a href="${path}/trangchu">Trang chủ</a> | 
 		<a href="${path}/vanhoa">Văn hoá</a> | 
 		<a href="${path}/phapluat">Pháp luật</a> | 
 		<a href="${path}/thethao">Thể thao</a> | 
 		<a href="${path}/dangnhap">Đăng nhập</a>
-	</nav>
+	</nav> --%>
 
 	<div class="container">
 		<div class="content">
