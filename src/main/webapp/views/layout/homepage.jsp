@@ -141,7 +141,7 @@ nav a:hover {
 </style>
 </head>
 <body>
-	<header>Header</header>
+	<header>BÁO ONLINE</header>
 	<c:set var="path" value="${pageContext.request.contextPath}" />
 	<nav>
 		<a href="${path}/trangchu">Trang chủ</a> |
@@ -202,6 +202,6 @@ nav a:hover {
 	<!-- 	<div class="content"> -->
 	<%-- 		<jsp:include page="/views/layout/${page}"></jsp:include> --%>
 	<!-- 	</div> -->
-	<footer>Footer</footer>
+	<footer>FPT POLYTECHNIC</footer>
 </body>
 </html>

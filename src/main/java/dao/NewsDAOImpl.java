@@ -140,7 +140,7 @@ public class NewsDAOImpl implements NewsDAO {
 	                news.getTitle(),
 	                news.getContent(),
 	                news.getImage(),
-	                news.getPostedDate().getTime(),
+	                news.getPostedDate(),
 	                news.getAuthor(),
 	                news.getViewCount(),
 	                news.getCategoryId(),
@@ -161,7 +161,7 @@ public class NewsDAOImpl implements NewsDAO {
 	                news.getTitle(),
 	                news.getContent(),
 	                news.getImage(),
-	                news.getPostedDate().getTime(),
+	                news.getPostedDate(),
 	                news.getAuthor(),
 	                news.getViewCount(),
 	                news.getCategoryId(),
@@ -268,4 +268,31 @@ public class NewsDAOImpl implements NewsDAO {
 	            throw new RuntimeException(e);
 	        }
 	    }
+	 
+	 
+	 @Override
+		public List<News> selectAll() {
+			try {
+				String sql = "SELECT * FROM News";
+				List<News> entities = new ArrayList<>();
+				Object[] values = {};
+				ResultSet resultSet = Jdbc.executeQuery(sql, values);
+				while (resultSet.next()) {
+					News entity = new News();
+					entity.setId(resultSet.getString("Id"));
+					entity.setTitle(resultSet.getString("Title"));
+					entity.setContent(resultSet.getString("Content"));
+					entity.setImage(resultSet.getString("Image"));
+					entity.setPostedDate(resultSet.getDate("PostedDate"));
+					entity.setAuthor(resultSet.getString("Author"));
+					entity.setViewCount(resultSet.getInt("ViewCount"));
+					entity.setCategoryId(resultSet.getString("CategoryId"));
+					entity.setHome(resultSet.getBoolean("Home"));
+					entities.add(entity);
+				}
+				return entities;
+			} catch (Exception e) {
+				throw new RuntimeException(e);
+			}
+		}
 }

@@ -44,7 +44,7 @@
 	<c:set var="path" value="${pageContext.request.contextPath}" />
 	<c:set var="user" value="${sessionScope.user}" />
 	<nav>
-		<a href="${path}/trangchuAdmin">Trang chủ</a> | <a
+		<a href="${path}/trangchuadmin">Trang chủ</a> | <a
 			href="${path}/tintuc">Tin tức</a>
 
 		<!-- Nếu là admin (role = true) mới hiển thị các mục khác -->

@@ -81,9 +81,18 @@ public class LayoutServlet extends HttpServlet {
 				}
 
 				// Kiểm tra trùng lặp (nếu người dùng xem lại tin cũ)
-				boolean exists = daXemList.stream().anyMatch(n -> n.getId().equals(news.getId()));
+				// Kiểm tra trùng (tin này đã xem chưa)
+				boolean exists = false;
+				for (News n : daXemList) {
+					if (n.getId().equals(news.getId())) {
+						exists = true;
+						break;
+					}
+				}
+
+				// Nếu chưa có thì thêm vào đầu danh sách
 				if (!exists) {
-					daXemList.add(0, news); // thêm vào đầu danh sách
+					daXemList.add(0, news);
 				}
 
 				// Giới hạn tối đa 5 tin đã xem

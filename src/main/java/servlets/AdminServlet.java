@@ -10,7 +10,13 @@ import java.util.List;
 
 import dao.CategoriesDAO;
 import dao.CategoriesDAOImpl;
+import dao.NewsDAO;
+import dao.NewsDAOImpl;
+import dao.UsersDAO;
+import dao.UsersDAOImpl;
 import entity.Categories;
+import entity.News;
+import entity.Users;
 
 /**
  * Servlet implementation class AdminServlet
@@ -36,20 +42,37 @@ public class AdminServlet extends HttpServlet {
 		String uri = request.getRequestURI();
 		String page = "";
 		
+		NewsDAO newsDAO = new NewsDAOImpl();
+		CategoriesDAO categoriesDAO = new CategoriesDAOImpl();
+		UsersDAO usersDAO = new UsersDAOImpl();
+		
 		if (uri.contains("trangchuadmin")) {
+		    List<News> newsList = newsDAO.selectAll(); // lấy toàn bộ tin tức
+		    request.setAttribute("newsList", newsList);
 			page = "home.jsp";
 		}
 		if (uri.contains("tintuc")) {
+			Users user = (Users) request.getSession().getAttribute("user");
+		    List<News> list;
+		    if (user != null && user.isRole()) {
+		        list = newsDAO.selectAll();
+		    } else {
+		        list = newsDAO.selectByUser(user.getId());
+		    }
+		    request.setAttribute("list", list);
+		    request.setAttribute("item", new News());
 			page = "tintuc.jsp";
 		}
 		if (uri.contains("loaitin")) {
-			CategoriesDAO dao = new CategoriesDAOImpl();
-		    List<Categories> list = dao.selectAll();
+		    List<Categories> list = categoriesDAO.selectAll();
 		    request.setAttribute("list", list);
 		    request.setAttribute("item", new Categories());
 			page = "loaitin.jsp";
 		}
 		if (uri.contains("nguoidung")) {
+		    List<Users> list = usersDAO.selectAll();
+		    request.setAttribute("list", list);
+		    request.setAttribute("item", new Users());
 			page = "nguoidung.jsp";
 		}
 		if (uri.contains("newsletter")) {

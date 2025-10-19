@@ -29,6 +29,9 @@ public interface NewsDAO {
 	/*Truy vấn theo loại tin*/
 	List<News> selectByCategory(String categoryId);
 	
+	/*Truy vấn tất cả tin*/
+	List<News> selectAll();
+	
 	/**	Thêm mới bản tin ( tham số )*/
 	void create(News news);
 	

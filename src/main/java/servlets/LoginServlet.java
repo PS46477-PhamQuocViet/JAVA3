@@ -48,7 +48,9 @@ public class LoginServlet extends HttpServlet {
                 }
             }
         }
-        request.getRequestDispatcher("/login.jsp").forward(request, response);
+        request.getRequestDispatcher("/views/layout/login.jsp").forward(request, response);
+        
+        
 	}
 
 	/**
@@ -90,7 +92,7 @@ public class LoginServlet extends HttpServlet {
                     }
                 }
             }
-            request.getRequestDispatcher("/views/admin/homeadmin.jsp").forward(request, response);
+            response.sendRedirect(request.getContextPath() + "/trangchuadmin");
         } else {
             request.setAttribute("message", "Đăng nhập thất bại!");
             request.getRequestDispatcher("/views/layout/login.jsp").forward(request, response);
